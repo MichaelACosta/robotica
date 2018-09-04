@@ -1,12 +1,3 @@
-// DOC
-// pwm +-135 --> parado
-// pwm 55 --> máximo
-// pwm 100 --> minimo
-// pwm 170 --> minimo
-// pwm 205 --> máximo
-// pwmX movimenta para os lados
-// pwmY movimenta para frente e para tras
-
 const int pwmY = 5;
 const int pwmX = 6;
 char control;
