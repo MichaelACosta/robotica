@@ -1,48 +1,50 @@
-const int pwmY = 5; //Esquerda, Direita //Verde
-const int pwmX = 6;  //Frente, Trans //Azul
+// DOC
+// pwm +-135 --> parado
+// pwm 55 --> máximo
+// pwm 100 --> minimo
+// pwm 170 --> minimo
+// pwm 205 --> máximo
+// pwmX movimenta para os lados
+// pwmY movimenta para frente e para tras
+
+const int pwmY = 5;
+const int pwmX = 6;
 char control;
 
- void setup() {
-  pinMode(pwmY,OUTPUT);
-  pinMode(pwmX, OUTPUT);    // Declara saidas PWM
+void setup() {
+  pinMode(pwmY, OUTPUT);
+  pinMode(pwmX, OUTPUT);
   analogWrite(pwmY, 135);
-  analogWrite(pwmX, 135);   // Mantem tensao no meio (inicia controle)
+  analogWrite(pwmX, 135);
   Serial.begin(9600);
 }
 
 void loop() {
   if (Serial.available() > 0) {
-    control = Serial.read();   // Read the incoming byte:
+    control = Serial.read();
 
     switch (control) {
       case 'd':
-        analogWrite(pwmY, 70);    // Passa valor para PWM (0 a 255)
-        Serial.print("Esquerda \n");
-        delay(500);
-        control = 'p';
+        analogWrite(pwmX, 80);
+        Serial.print("Direita \n");
         break;
       case 'a':
-        analogWrite(pwmY, 215);
-        Serial.print("Direita \n");
-        delay(500);
-        control = 'p';
+        analogWrite(pwmX, 190);
+        Serial.print("Esquerda \n");
         break;
       case 'w':
-        analogWrite(pwmX, 215);
+        analogWrite(pwmY, 190);
         Serial.print("Frente \n");
-        delay(500);
-        control = 'p';
         break;
       case 's':
-        analogWrite(pwmX, 70);
+        analogWrite(pwmY, 80);
         Serial.print("Tras \n");
-        delay(500);
-        control = 'p';
         break;
       default:
         analogWrite(pwmY, 135);
-        analogWrite(pwmX, 135);   // Mantem tensao no meio (inicia controle)
+        analogWrite(pwmX, 135);
         Serial.print("Parado \n");
+        break;
     }
     delay(1000);
   }
